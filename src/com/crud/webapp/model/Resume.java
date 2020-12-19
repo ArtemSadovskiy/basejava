@@ -1,3 +1,5 @@
+package com.crud.webapp.model;
+
 public class Resume {
     // Unique identifier
     String uuid;

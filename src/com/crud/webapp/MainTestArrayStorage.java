@@ -1,3 +1,7 @@
+package com.crud.webapp;
+
+import com.crud.webapp.storage.ArrayStorage;
+
 public class MainTestArrayStorage {
 
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
