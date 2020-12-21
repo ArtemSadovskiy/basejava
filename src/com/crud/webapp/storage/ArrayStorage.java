@@ -2,8 +2,6 @@ package com.crud.webapp.storage;
 
 import com.crud.webapp.model.Resume;
 
-import static java.util.Arrays.copyOf;
-
 /**
  * Array based storage for Resumes
  */
@@ -34,7 +32,7 @@ public class ArrayStorage {
         int index = getIndex(r.getUuid());
         if (index != -1) {
             System.out.println("Resume already exist");
-        } else if(size==storage.length){
+        } else if (size == storage.length) {
             System.out.println("Storage overflow");
         } else {
             storage[size] = r;
@@ -77,7 +75,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int getIndex(String uuid){
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].toString())) {
                 return i;
