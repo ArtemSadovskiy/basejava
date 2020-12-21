@@ -1,70 +1,83 @@
 package com.crud.webapp.storage;
 
+import com.crud.webapp.model.Resume;
+
+import static java.util.Arrays.copyOf;
+
 /**
  * Array based storage for Resumes
  */
 
 public class ArrayStorage {
 
-    Resume[] storage = new Resume[10000];
-    static int size = 0;
+    private Resume[] storage = new Resume[10000];
+    private static int size = 0;
 
-    void clear() {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] != null)
-                storage[i] = null;
-            else
-                break;
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
         }
         size = 0;
+        System.out.println("Удаление всех резюме");
     }
 
-    void save(Resume r) {
-        for (int i = 0; i < 10000; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                size++;
-                break;
-            }
-
+    public void update(Resume r) {
+        if (presenceResume(r.getUuid()) >= 0) {
+            storage[presenceResume(r.getUuid())] = r;
         }
     }
 
-    Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].toString())) {
-                return storage[i];
-            }
+    public void save(Resume r) {
+        if (absenceResume(r)) {
+            storage[size] = r;
+            size++;
+        }
+        else System.out.println("Данное резюме уже имеется!");
+    }
+
+    public Resume get(String uuid) {
+        if (presenceResume(uuid) >= 0) {
+            return storage[presenceResume(uuid)];
         }
         return null;
     }
 
-    void delete(String uuid) {
-        for (int i = 0; i < 10000; i++) {
-            if (uuid.equals(storage[i].toString())) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                break;
-            }
+    public void delete(String uuid) {
+        if (presenceResume(uuid) >= 0) {
+            storage[presenceResume(uuid)] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
-        Resume[] s = new Resume[size];
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                s[i] = storage[i];
-            } else
-                break;
-        }
-        return s;
+    public Resume[] getAll() {
+        return copyOf(storage, size, storage.getClass());
     }
 
-    int size() {
+    public int size() {
         return size;
+    }
+
+    public boolean absenceResume(Resume r){
+        int x = 0;
+        for (int i = 0; i < size; i++) {
+            if (storage[i] == r) {
+                x++;
+            }
+        }
+        return x==0;
+    }
+
+    public int presenceResume(String uuid){
+        int a = 0;
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].toString())) {
+               a = i;
+            }
+        }
+        return a;
     }
 }
