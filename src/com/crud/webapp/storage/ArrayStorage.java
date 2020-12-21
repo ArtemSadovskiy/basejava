@@ -22,29 +22,41 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        if (presenceResume(r.getUuid()) >= 0) {
-            storage[presenceResume(r.getUuid())] = r;
+        int index = getIndex(r.getUuid());
+        if (index == -1) {
+            System.out.println("Resume not exist");
+        } else {
+            storage[index] = r;
         }
     }
 
     public void save(Resume r) {
-        if (absenceResume(r)) {
+        int index = getIndex(r.getUuid());
+        if (index != -1) {
+            System.out.println("Resume already exist");
+        } else if(size==storage.length){
+            System.out.println("Storage overflow");
+        } else {
             storage[size] = r;
             size++;
         }
-        else System.out.println("Данное резюме уже имеется!");
     }
 
     public Resume get(String uuid) {
-        if (presenceResume(uuid) >= 0) {
-            return storage[presenceResume(uuid)];
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Resume not exist");
+            return null;
         }
-        return null;
+        return storage[index];
     }
 
     public void delete(String uuid) {
-        if (presenceResume(uuid) >= 0) {
-            storage[presenceResume(uuid)] = storage[size - 1];
+        int index = getIndex(uuid);
+        if (index < 0) {
+            System.out.println("Resume not exist");
+        } else {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         }
@@ -54,30 +66,23 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        return copyOf(storage, size, storage.getClass());
+        Resume[] result = new Resume[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = storage[i];
+        }
+        return result;
     }
 
     public int size() {
         return size;
     }
 
-    public boolean absenceResume(Resume r){
-        int x = 0;
-        for (int i = 0; i < size; i++) {
-            if (storage[i] == r) {
-                x++;
-            }
-        }
-        return x==0;
-    }
-
-    public int presenceResume(String uuid){
-        int a = 0;
+    private int getIndex(String uuid){
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].toString())) {
-               a = i;
+                return i;
             }
         }
-        return a;
+        return -1;
     }
 }
