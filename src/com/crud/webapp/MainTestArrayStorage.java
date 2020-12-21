@@ -2,10 +2,11 @@ package com.crud.webapp;
 
 import com.crud.webapp.model.Resume;
 import com.crud.webapp.storage.ArrayStorage;
+import com.crud.webapp.storage.Storage;
 
 public class MainTestArrayStorage {
 
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
