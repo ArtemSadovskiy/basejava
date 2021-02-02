@@ -1,11 +1,10 @@
 package com.crud.webapp.storage;
 
-import com.crud.webapp.exception.ExistStorageException;
-import com.crud.webapp.exception.NotExistStorageException;
 import com.crud.webapp.exception.StorageException;
 import com.crud.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Array based storage for Resumes
@@ -31,8 +30,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[(Integer) index] = r;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    @Override
+    public List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
