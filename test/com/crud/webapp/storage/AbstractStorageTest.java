@@ -6,6 +6,7 @@ import com.crud.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("D:\\Java\\Projects\\basejava\\storage");
 
     protected Storage storage;
 
@@ -86,7 +88,7 @@ public abstract class AbstractStorageTest {
     public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "new Name");
         storage.update(newResume);
-        assertTrue(newResume == storage.get(UUID_1));
+        assertTrue(newResume.equals(storage.get(UUID_1)));
 
     }
 
@@ -141,6 +143,7 @@ public abstract class AbstractStorageTest {
     }
 
     private void assertGet(Resume r) {
+
         assertEquals(r, storage.get(r.getUuid()));
     }
 
