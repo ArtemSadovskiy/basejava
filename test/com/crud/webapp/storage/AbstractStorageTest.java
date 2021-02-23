@@ -1,5 +1,6 @@
 package com.crud.webapp.storage;
 
+import com.crud.webapp.Config;
 import com.crud.webapp.exception.ExistStorageException;
 import com.crud.webapp.exception.NotExistStorageException;
 import com.crud.webapp.model.*;
@@ -14,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("D:\\Java\\Projects\\basejava\\storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
 
