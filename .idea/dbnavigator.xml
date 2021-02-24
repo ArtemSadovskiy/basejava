@@ -26,27 +26,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="09c71f86-b9db-46f8-ad29-787eba9472d2">
-        <schema name="information_schema" object-types="table, function" />
-        <schema name="pg_catalog" object-types="table, function, view, sequence" />
-        <schema name="public" object-types="table, function, view, sequence" />
+        <schema name="public" object-types="sequence, view, function, table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="09c71f86-b9db-46f8-ad29-787eba9472d2">
-      <console name="resumes" type="STANDARD" schema="information_schema" session="Main"><![CDATA[CREATE TABLE resume (
-  uuid      CHAR(36) PRIMARY KEY NOT NULL,
-  full_name TEXT                 NOT NULL
-);
-
-CREATE TABLE contact (
-  id          SERIAL,
-  resume_uuid CHAR(36) NOT NULL REFERENCES resume (uuid) ON DELETE CASCADE,
-  type        TEXT     NOT NULL,
-  value       TEXT     NOT NULL
-);
-CREATE UNIQUE INDEX contact_uuid_type_index
-  ON contact (resume_uuid, type);]]></console>
+      <console name="resumes" type="STANDARD" schema="information_schema" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -135,7 +121,7 @@ CREATE UNIQUE INDEX contact_uuid_type_index
           <alternative-statement-delimiter value="" />
         </details>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="false">
+          <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
